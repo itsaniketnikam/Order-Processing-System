@@ -27,7 +27,9 @@ export class RegisterDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(8, { message: 'password must be at least 8 characters long' })
-  @MaxLength(72, { message: 'password cannot exceed 72 characters (bcrypt limit)' })
+  @MaxLength(72, {
+    message: 'password cannot exceed 72 characters (bcrypt limit)',
+  })
   password!: string;
 
   @ApiProperty({ example: 'Jane', maxLength: 100 })

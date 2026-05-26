@@ -1,13 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
+import { Transform, TransformFnParams } from 'class-transformer';
 import {
   IsEmail,
   IsNotEmpty,
   IsString,
   MaxLength,
   MinLength,
-  Matches
+  Matches,
 } from 'class-validator';
+
+const trim = ({ value }: TransformFnParams): unknown =>
+  typeof value === 'string' ? value.trim() : value;
+
+const trimLower = ({ value }: TransformFnParams): unknown =>
+  typeof value === 'string' ? value.trim().toLowerCase() : value;
 
 export class CreateUserDto {
   @ApiProperty({
@@ -15,7 +21,7 @@ export class CreateUserDto {
     description: 'Unique customer email address',
     maxLength: 255,
   })
-  @Transform(({ value }) => value?.trim().toLowerCase())
+  @Transform(trimLower)
   @IsEmail({}, { message: 'email must be a valid email address' })
   @IsNotEmpty()
   @MaxLength(255)
@@ -36,8 +42,7 @@ export class CreateUserDto {
     message: 'password cannot exceed 72 characters',
   })
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/, {
-    message:
-      'password must contain uppercase, lowercase and number',
+    message: 'password must contain uppercase, lowercase and number',
   })
   password!: string;
 
@@ -46,7 +51,7 @@ export class CreateUserDto {
     description: 'Customer first name',
     maxLength: 100,
   })
-  @Transform(({ value }) => value?.trim())
+  @Transform(trim)
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
@@ -60,7 +65,7 @@ export class CreateUserDto {
     description: 'Customer last name',
     maxLength: 100,
   })
-  @Transform(({ value }) => value?.trim())
+  @Transform(trim)
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)

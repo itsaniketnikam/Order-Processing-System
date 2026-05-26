@@ -36,7 +36,9 @@ export class UsersService {
       select: { id: true },
     });
     if (existing) {
-      throw new ConflictException(`Email "${normalizedEmail}" is already registered`);
+      throw new ConflictException(
+        `Email "${normalizedEmail}" is already registered`,
+      );
     }
 
     const passwordHash = await bcrypt.hash(dto.password, BCRYPT_SALT_ROUNDS);
@@ -57,7 +59,9 @@ export class UsersService {
         err instanceof QueryFailedError &&
         (err.driverError as { code?: string })?.code === PG_UNIQUE_VIOLATION
       ) {
-        throw new ConflictException(`Email "${normalizedEmail}" is already registered`);
+        throw new ConflictException(
+          `Email "${normalizedEmail}" is already registered`,
+        );
       }
       this.logger.error('Failed to persist user', err as Error);
       throw new InternalServerErrorException('Could not create user');
@@ -88,9 +92,11 @@ export class UsersService {
     options: { includePassword?: boolean } = {},
   ): Promise<User | null> {
     const normalized = email.toLowerCase().trim();
-    const qb = this.usersRepository.createQueryBuilder('user').where('user.email = :email', {
-      email: normalized,
-    });
+    const qb = this.usersRepository
+      .createQueryBuilder('user')
+      .where('user.email = :email', {
+        email: normalized,
+      });
     if (options.includePassword) {
       qb.addSelect('user.password');
     }

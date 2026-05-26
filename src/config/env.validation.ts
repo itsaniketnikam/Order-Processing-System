@@ -16,4 +16,11 @@ export const envValidationSchema = Joi.object({
   JWT_EXPIRES_IN: Joi.string().default('3600s'),
 
   SWAGGER_ENABLED: Joi.boolean().default(true),
+
+  // Cron expression for the PENDING -> PROCESSING transition job.
+  // 5-field (minute hour day month weekday). Default = every 5 minutes.
+  ORDERS_PROCESS_PENDING_CRON: Joi.string().default('*/5 * * * *'),
+
+  // Shared secret for fulfillment status updates (X-Admin-Key header).
+  ADMIN_API_KEY: Joi.string().min(8).required(),
 });

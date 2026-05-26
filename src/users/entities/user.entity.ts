@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Order } from '../../orders/entities/order.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -29,6 +31,9 @@ export class User {
 
   @Column({ name: 'lastName', type: 'varchar', length: 100 })
   lastName!: string;
+
+  @OneToMany(() => Order, (order) => order.customer)
+  orders?: Order[];
 
   @CreateDateColumn({ name: 'createdAt', type: 'timestamptz' })
   createdAt!: Date;
