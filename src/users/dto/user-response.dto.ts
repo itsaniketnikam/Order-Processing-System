@@ -21,6 +21,14 @@ export class UserResponseDto {
   email!: string;
 
   @Expose()
+  @ApiProperty({ example: 'Jane' })
+  firstName!: string;
+
+  @Expose()
+  @ApiProperty({ example: 'Doe' })
+  lastName!: string;
+
+  @Expose()
   @ApiProperty({ type: String, format: 'date-time' })
   createdAt!: Date;
 
@@ -32,6 +40,8 @@ export class UserResponseDto {
     const dto = new UserResponseDto();
     dto.id = user.id;
     dto.email = user.email;
+    dto.firstName = user.firstName;
+    dto.lastName = user.lastName;
     dto.createdAt = user.createdAt;
     dto.updatedAt = user.updatedAt;
     return dto;

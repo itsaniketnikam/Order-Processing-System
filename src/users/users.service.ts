@@ -44,6 +44,8 @@ export class UsersService {
     const user = this.usersRepository.create({
       email: normalizedEmail,
       password: passwordHash,
+      firstName: dto.firstName.trim(),
+      lastName: dto.lastName.trim(),
     });
 
     try {

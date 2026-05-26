@@ -8,6 +8,7 @@ import jwtConfig from './config/jwt.config';
 import { envValidationSchema } from './config/env.validation';
 import { typeOrmAsyncConfig } from './database/typeorm.factory';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UsersModule } from './users/users.module';
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

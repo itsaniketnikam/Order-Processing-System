@@ -24,6 +24,12 @@ export class User {
   @Column({ type: 'varchar', length: 255, select: false })
   password!: string;
 
+  @Column({ name: 'firstName', type: 'varchar', length: 100 })
+  firstName!: string;
+
+  @Column({ name: 'lastName', type: 'varchar', length: 100 })
+  lastName!: string;
+
   @CreateDateColumn({ name: 'createdAt', type: 'timestamptz' })
   createdAt!: Date;
 
