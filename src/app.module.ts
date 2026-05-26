@@ -7,6 +7,7 @@ import databaseConfig from './config/database.config';
 import jwtConfig from './config/jwt.config';
 import { envValidationSchema } from './config/env.validation';
 import { typeOrmAsyncConfig } from './database/typeorm.factory';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { typeOrmAsyncConfig } from './database/typeorm.factory';
       validationOptions: { abortEarly: true },
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
+    UsersModule,
   ],
 })
 export class AppModule {}
