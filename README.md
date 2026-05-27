@@ -26,7 +26,7 @@ npm run start:dev
 | URL | Purpose |
 |-----|---------|
 | http://localhost:8080/api | REST API (global prefix) |
-| http://localhost:8080/docs | Swagger UI |
+| http://localhost:8080/api | Swagger UI |
 
 ## Environment variables
 
